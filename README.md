@@ -1,5 +1,5 @@
 # EEL
-The EEL-32I is a pipelined 32-bit RV32I processor. The goal of the EEL is to be the basis for a later, ASIC hardened revision.
+The EEL-32I is a pipelined 32-bit RV32I processor. The goal of the EEL is to be the basis for a later, ASIC hardened drop-in core.
 
 ## ISA Extensions
 The EEL will target being the base for several new extensions:
