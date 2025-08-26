@@ -12,10 +12,10 @@ module IMEM #(parameter ADDR_DEPTH = 14)
 );
 
 (* rom_style = "{distributed | block}" *)
-(* rom_decomp = "power" *) logic [31:0] rom_64kb[0:2**ADDR_DEPTH-1];
+(* rom_decomp = "power" *) logic [31:0] rom_64kb [0:2**ADDR_DEPTH-1];
 
 initial begin
-    $readmemh("eel_program.mem", rom_64kb, 0, 2**ADDR_DEPTH-1);
+    $readmemh("eel_program.mem", rom_64kb);
 end
 
 always_ff@(posedge CLK) begin
