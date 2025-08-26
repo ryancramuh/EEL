@@ -29,3 +29,4 @@ Though many iterations of the OTTER exist, no accessible version has been develo
 - CSR
 ## Current Schematic
 ![Alt text](./images/EEL_DIAGRAM.svg)
+<img src="./images/EEL_DIAGRAM.svg" alt="Project logo" width="320">
