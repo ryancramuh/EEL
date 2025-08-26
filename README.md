@@ -1,7 +1,8 @@
 # EEL
-The EEL-32 is a pipelined 32-bit RV32I processor. Though the EEL-32 resembles Cal Poly SLO's OTTER core, it will have multiple new ISA extensions as well as an interrupt system. The goal of the EEL is to extend the OTTER, and achieve RTOS compatibility. A secondary goal of the EEL is to be the basis a later, ASIC hardened revision.
+The EEL-32I is a pipelined 32-bit RV32I processor. The goal of the EEL is to be the basis for a later, ASIC hardened revision.
+
 ## ISA Extensions
-The EEL will target several new extensions:
+The EEL will target being the base for several new extensions:
 <br>Zifencei
 <br>Zicsr
 <br>M - multiply/divide
@@ -22,10 +23,7 @@ Though many iterations of the OTTER exist, no accessible version has been develo
 - Register File
 - Instruction Decoder
 - Immediate Extender
-- Branch Generator
 - Arithmetic Logic Unit
-- Hazard Unit
-- Branch Predictor
-- CSR
+
 ## Current Schematic
 <img src="./images/EEL_DIAGRAM.svg" alt="Project logo" width="2000">
