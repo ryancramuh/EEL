@@ -15,6 +15,7 @@ typedef struct packed {
     logic [XLEN-1:0] RS2;
     logic [4:0]  ADDR1;
     logic [4:0]  ADDR2;
+    logic [4:0]  WADDR;
     logic [1:0] RF_SEL;
     logic REG_WRITE;
     
@@ -24,19 +25,20 @@ typedef struct packed {
     
     // ALU Signals
     logic [3:0] ALU_FUN;
-    logic ALU_SRC_A;
-    logic [1:0] ALU_SRC_B;
+    logic SRC_A_SEL;
+    logic [1:0] SRC_B_SEL;
     logic [XLEN-1:0] ALU_RESULT;
     logic ZERO;
 
     // DMEM Signals
     logic MEM_WRITE;
     logic MEM_READ;
-    logic BYTE_SEL;
+    logic [1:0] BYTE_SEL;
+    logic SIGN;
 
     // Flow Control Signals
     logic BRANCH;
-    logic BR_TYPE;
+    logic [2:0] BR_TYPE;
     logic JUMP;
 
     logic STALL;

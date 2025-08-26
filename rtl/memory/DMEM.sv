@@ -18,20 +18,23 @@ module DMEM #(parameter ADDR_DEPTH = 14)
 
     logic [31:0] data_out;
     logic [31:0] data_in;
-    
+    logic [13:0] actual_addr;
+
+    assign actual_addr = ADDR - 14'h6000;
+
     always_comb begin // DATA_OUT BYTE CONVERSION
         case(BYTE_SEL)
             2'b00: begin // BYTE
-                data_out = SIGN ? {{24{1'b1}}, ram_64kb[ADDR][7:0]} : {{24{1'b0}}, ram_64kb[ADDR][7:0]};
+                data_out = SIGN ? {{24{1'b1}}, ram_64kb[actual_addr][7:0]} : {{24{1'b0}}, ram_64kb[actual_addr][7:0]};
             end
             2'b01: begin // HALF
-                data_out = SIGN ? {{16{1'b1}}, ram_64kb[ADDR][15:0]} : {{16{1'b0}}, ram_64kb[ADDR][15:0]};
+                data_out = SIGN ? {{16{1'b1}}, ram_64kb[actual_addr][15:0]} : {{16{1'b0}}, ram_64kb[actual_addr][15:0]};
             end
             2'b10: begin // WORD
-                data_out = ram_64kb[ADDR];
+                data_out = ram_64kb[actual_addr];
             end
             default: begin // default = WORD
-                data_out = ram_64kb[ADDR];
+                data_out = ram_64kb[actual_addr];
             end
         endcase
     end
@@ -58,7 +61,7 @@ module DMEM #(parameter ADDR_DEPTH = 14)
             DATA_OUT <= data_out;
         end
         else if (WEN) begin
-            ram_64kb[ADDR] <= data_in; 
+            ram_64kb[actual_addr] <= data_in; 
             DATA_OUT <= 'b0;  
         end
         else 
