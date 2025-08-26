@@ -28,4 +28,4 @@ Though many iterations of the OTTER exist, no accessible version has been develo
 - Branch Predictor
 - CSR
 ## Current Schematic
-![Alt text](./images/logo.svg)
+![Alt text](./images/EEL_DIAGRAM.svg)
