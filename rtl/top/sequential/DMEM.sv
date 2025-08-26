@@ -58,7 +58,8 @@ module DMEM #(parameter ADDR_DEPTH = 14)
             DATA_OUT <= data_out;
         end
         else if (WEN) begin
-            ram_64kb[ADDR] <= data_in;
+            ram_64kb[ADDR] <= data_in; 
+            DATA_OUT <= 'b0;  
         end
         else 
             DATA_OUT <= 'b0;  
