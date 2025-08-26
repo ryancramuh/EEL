@@ -6,6 +6,9 @@ module EEL (
     input CLK,
     input RST
 );
+
+    pipeline_reg_t fd, de, em, mw;
+    
     logic [31:0] pc_in;
     logic [31:0] next_pc;
     logic [31:0] pc_out;
