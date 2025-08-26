@@ -75,6 +75,8 @@ lint_top:
 	@printf "Linting Top Level Module: $(TOP_FILE)\n";
 	$(LINTER) $(LINT_OPTS) --top-module $(TOP_MODULE) $(TOP_FILE)
 
+rars: 
+	java -jar asm/rars.jar
 
 tests: $(TESTS) 
 
