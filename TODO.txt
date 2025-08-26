@@ -1,0 +1,42 @@
+1. Split Data and Instruction Memory apart
+2. The original Dualport Memory was 64kB but had no arbitration across data or instruction memory
+3. Create a 64kB ROM that will have a ".mem" file initialized and will be read only (no writes) with asynch or synchronous reads ( choose one ) 
+4. Create a 64kB RAM that will have syncronous reads and synchronous writes 
+
+Parameterize everything 
+
+Notes:
+For FPGA synthesis, creating memory this big will require you to allocate with macros
+You can use block or distributed memory 
+Block = 36kB blocks (up to 50 for the XC7A35T)
+Distributed = LUT (much faster)
+
+(* rom_style * = "block" *) --> this will create memory out of 36kB blocks on the FPGA fabric for Artix-7 (up to 50 blocks)
+(* rom_style * = "{distributed | block}" *) --> uses either distributed or block 
+
+(* rom_decomp * = "power" *) --> uses less power
+
+The way to declare large memory is as often follows:
+(* rom_style * = "block" *) (* rom_decomp * = "power" *) logic [data_width:0] ram_xB [0:#addresses] 
+
+The way to initialize a ROM is as follows:
+initial begin
+        $readmemh("otter_memory.mem", memory, 0, 2**ACTUAL_WIDTH-1);
+end 
+
+
+INPUTS/OUTPUTS
+
+ROM: (64kB)
+input CLK
+input RDEN
+input ADDR
+output DATA
+
+RAM (64kB)
+input CLK
+input RDEN
+input WEN
+input READ_ADDR
+input WRITE_ADDR
+output READ_DATA
