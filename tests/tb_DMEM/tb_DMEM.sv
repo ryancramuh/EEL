@@ -112,6 +112,23 @@ module tb_DMEM();
             DATA_IN <= 32'h0000_0000;
 
 
+        // WRITE
+        #10 RDEN <= 1'b0;
+            WEN <= 1'b1;
+            BYTE_SEL <= 2'b10;
+            SIGN <= 1'b0;
+            ADDR <= 14'd1;
+            DATA_IN <= 32'hdeadbeef;
+
+        // READ
+        #10 RDEN <= 1'b1;
+            WEN <= 1'b0;
+            BYTE_SEL <= 2'b10;
+            SIGN <= 1'b0;
+            ADDR <= 14'd1;
+            DATA_IN <= 32'h0000_0000;
+
+        
 
         #20 $finish;
     end
