@@ -4,7 +4,7 @@ module HAZARD (
     input [4:0]  D_ADDR1,
     input [4:0]  D_ADDR2,
     input [4:0]  D_WADDR,
-    input [31:0] D_IR,
+    input [6:0] D_OP,
     input D_MEM_READ,
 
     input [4:0]  E_ADDR1,
@@ -18,8 +18,13 @@ module HAZARD (
     output logic FWD_MEM_SEL
 );
 
-    always_comb
+    /* Hazards are generated if source operand address (addr1 or addr2) is the same as the destination address (waddr)
+     * 
+     * Every waddr will be compared with addr1 and addr2 in the decode stage
+     *      - if store then load hazard, you must stall for store to be available for load  
+     *      - if load and then store, forward DATA_OUT to DATA_IN of DMEM
+     *      - if load then use hazard, you must stall then resolve by forwarding dout 
+     *      - if normal data hazard, pipe ALU result from E, M, or W. */
 
-    always_comb begin
-
+    
 endmodule
