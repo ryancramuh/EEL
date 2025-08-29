@@ -31,9 +31,9 @@ module HAZARD (
     input        W_MEM_WRITE,
 
 
-    output logic FWD_A_SEL;
-    output logic FWD_B_SEL;
-    output logic SW_SEL;
+    output logic FWD_A_SEL,
+    output logic FWD_B_SEL,
+    output logic SW_SEL
 );
 
     /* Hazards are generated if source operand address (addr1 or addr2) is the same as the destination address (waddr)
