@@ -3,7 +3,9 @@
 // module: Data Memory 64kB
 // author: Ryan Cramer
 
-module DMEM #(parameter ADDR_DEPTH = 14) 
+module DMEM #(parameter ADDR_DEPTH = 14, // 2^14 = 16384 ADDR_WIDTH addresses 
+              parameter DATA_MEM_BASE = 14'h6000, // Configed to start at 0x6000
+              parameter ADDR_WIDTH = 32) // 32-bit ADDR_WIDTH
 (
     input CLK,
     input RDEN,
@@ -11,15 +13,15 @@ module DMEM #(parameter ADDR_DEPTH = 14)
     input [1:0] BYTE_SEL,
     input SIGN,
     input [ADDR_DEPTH-1:0] ADDR,
-    input [31:0] DATA_IN,
-    output logic [31:0] DATA_OUT
+    input [ADDR_WIDTH-1:0] DATA_IN,
+    output logic [ADDR_WIDTH-1:0] DATA_OUT
 );
-    parameter DATA_MEM_BASE = 14'h6000;
-    (* ram_style = "block" *) logic [31:0] ram_64kb [0:2**ADDR_DEPTH-1];
 
-    logic [31:0] data_out;
-    logic [31:0] data_in;
-    logic [13:0] actual_addr;
+    (* ram_style = "block" *) logic [ADDR_WIDTH-1:0] ram_64kb [0:2**ADDR_DEPTH-1];
+    
+    logic [ADDR_WIDTH-1:0] data_out;
+    logic [ADDR_WIDTH-1:0] data_in;
+    logic [ADDR_DEPTH-1:0] actual_addr;
 
     assign actual_addr = ADDR - DATA_MEM_BASE;
 
