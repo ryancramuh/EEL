@@ -14,13 +14,14 @@ module DMEM #(parameter ADDR_DEPTH = 14)
     input [31:0] DATA_IN,
     output logic [31:0] DATA_OUT
 );
+    parameter DATA_MEM_BASE = 14'h6000;
     (* ram_style = "block" *) logic [31:0] ram_64kb [0:2**ADDR_DEPTH-1];
 
     logic [31:0] data_out;
     logic [31:0] data_in;
     logic [13:0] actual_addr;
 
-    assign actual_addr = ADDR - 14'h6000;
+    assign actual_addr = ADDR - DATA_MEM_BASE;
 
     always_comb begin // DATA_OUT BYTE CONVERSION
         case(BYTE_SEL)
