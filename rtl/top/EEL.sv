@@ -125,12 +125,12 @@ module EEL (
         fd.WADDR      <= ir [11:7];
 
         if(stall) begin
-            fd.PC         <= fd.PC;
+            fd.PC         <= fd.PC;    
             fd.NEXTPC     <= fd.NEXTPC;
-            fd.IR         <= fd.IR;
-            fd.ADDR1      <= fd.ADDR1;
-            fd.ADDR2      <= fd.ADDR2;
-            fd.WADDR      <= fd.WADDR;
+            fd.IR         <= ir;    
+            fd.ADDR1      <= fd.ADDR1; 
+            fd.ADDR2      <= fd.ADDR2; 
+            fd.WADDR      <= fd.WADDR; 
         end
 
     end
@@ -233,29 +233,29 @@ module EEL (
         de.IMM        <= imm;
 
         if(stall) begin
-            de.PC         <= de.PC;          
-            de.NEXTPC     <= de.NEXTPC;      
-            de.IR         <= 32'h0000_0000;          
-            de.ADDR1      <= 'b0;       
-            de.ADDR2      <= 'b0;       
-            de.WADDR      <= 'b0;      
-            de.RS1        <= 'b0;         
-            de.RS2        <= 'b0;         
-            de.RF_SEL     <= 2'b00;      
-            de.REG_WRITE  <= 1'b0;   
-            de.PC_SEL     <= 2'b0;      
-            de.MEM_WRITE  <= 1'b0;  
-            de.MEM_READ   <= 1'b0;    
-            de.SIGN       <= 1'b0;        
-            de.BYTE_SEL   <= 2'b00;    
-            de.BRANCH     <= 1'b0;      
-            de.BR_TYPE    <= 3'b000;     
-            de.JUMP       <= 1'b0;        
-            de.ALU_FUN    <= 4'b0000;     
-            de.SRC_A_SEL  <= 1'b0;   
-            de.SRC_B_SEL  <= 2'b00;   
-            de.IMM_SEL    <= 3'b000;   
-            de.IMM        <= 32'b00;
+            de.PC         <= de.PC;                   
+            de.NEXTPC     <= de.NEXTPC;           
+            de.IR         <= de.IR;                   
+            de.ADDR1      <= de.ADDR1;      
+            de.ADDR2      <= de.ADDR2;     
+            de.WADDR      <= de.WADDR;      
+            de.RS1        <= de.RS1;        
+            de.RS2        <= de.RS2;        
+            de.RF_SEL     <= de.RF_SEL;           
+            de.REG_WRITE  <= de.REG_WRITE;     
+            de.PC_SEL     <= de.PC_SEL;           
+            de.MEM_WRITE  <= de.MEM_WRITE;    
+            de.MEM_READ   <= de.MEM_READ;       
+            de.SIGN       <= de.SIGN;               
+            de.BYTE_SEL   <= de.BYTE_SEL;       
+            de.BRANCH     <= de.BRANCH;           
+            de.BR_TYPE    <= de.BR_TYPE;         
+            de.JUMP       <= de.JUMP;               
+            de.ALU_FUN    <= de.ALU_FUN;         
+            de.SRC_A_SEL  <= de.SRC_A_SEL;     
+            de.SRC_B_SEL  <= de.SRC_B_SEL;     
+            de.IMM_SEL    <= de.IMM_SEL;       
+            de.IMM        <= de.IMM;        
         end          
     end
 
@@ -307,6 +307,29 @@ module EEL (
         em.ALU_RESULT <= alu_result;
         em.ZERO       <= zero;  
 
+        if(stall) begin
+            em.PC         <= de.PC;       
+            em.NEXTPC     <= de.NEXTPC;     
+            em.IR         <= 32'h0000_0000;         
+            em.ADDR1      <= de.ADDR1;      
+            em.ADDR2      <= de.ADDR2;      
+            em.WADDR      <= 5'b00000;  
+
+            // signals generated in DECODE
+            em.RS1        <= de.RS1;
+            em.RS2        <= de.RS2;
+            em.RF_SEL     <= de.RF_SEL;
+            em.REG_WRITE  <= 1'b0;
+    
+            em.MEM_WRITE  <= 1'b0;
+            em.MEM_READ   <= 1'b0;
+            em.SIGN       <= de.SIGN;
+            em.BYTE_SEL   <= de.BYTE_SEL;
+
+            // signals generated in EXECUTE
+            em.ALU_RESULT <= 32'b0;
+            em.ZERO       <= 1'b0;  
+        end
     end
 
     

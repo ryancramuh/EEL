@@ -44,7 +44,8 @@ class alignas(VL_CACHE_LINE_BYTES) Vtb_EEL___024root final : public VerilatedMod
     CData/*0:0*/ tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT__md_fwd1;
     CData/*0:0*/ tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT__md_fwd2;
     CData/*0:0*/ tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT__we_load_fwd1;
-    CData/*0:0*/ tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT____VdfgRegularize_hb9c15412_0_11;
+    CData/*0:0*/ tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT__we_load_fwd2;
+    CData/*0:0*/ tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT____VdfgRegularize_hb9c15412_0_14;
     CData/*0:0*/ __VdlySet__tb_EEL__DOT__RST__v0;
     CData/*0:0*/ __VdlySet__tb_EEL__DOT__RST__v1;
     CData/*0:0*/ __VstlFirstIteration;

@@ -19,4 +19,6 @@ add x1, x3, x2 # rs1 and rs2 rely on regs with pending writes
 # at this point you should have 
 # x10 = 6010
 # x9 = 6010
-#
+# x3 = c020 
+# x2 = 18040
+# x1 = 24060
