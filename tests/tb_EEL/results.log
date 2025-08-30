@@ -1,4 +1,4 @@
 - tb_EEL.sv:29: Verilog $finish
 - S i m u l a t i o n   R e p o r t: Verilator 5.034 2025-02-24
-- Verilator: $finish at 325ns; walltime 0.004 s; speed 67.825 us/s
-- Verilator: cpu 0.005 s on 1 threads; alloced 121 MB
+- Verilator: $finish at 325ns; walltime 0.003 s; speed 83.066 us/s
+- Verilator: cpu 0.004 s on 1 threads; alloced 121 MB

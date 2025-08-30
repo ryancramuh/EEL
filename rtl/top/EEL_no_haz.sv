@@ -9,31 +9,59 @@ module EEL (
 
     pipeline_reg_t fd, de, em, mw;
     
-    logic stall;
-    logic flush;
-
-    // CONTROL SIGNALS
-    logic [1:0] fwd_rs1, fwd_rs2;
-        // 2'b00: NO FWD
-        // 2'b01: EXECUTE FWD
-        // 2'b10: MEM FWD
-        // 2'b11: WB FWD
-    logic fwd_srca, fwd_srcb, fwd_din;
-        // 1'b0: NO FWD
-        // 1'b1: FWD
-
-    // FORWARDED DATA LINED 
-    logic [31:0] rs1_fwd, rs2_fwd, srca_fwd, srcb_fwd, din_fwd;
-    
     logic [31:0] pc_in;
     logic [31:0] next_pc;
     logic [31:0] pc_out;
     logic [31:0] ir;
     assign next_pc = pc_out + 4;
-    
+
+    MUX4T1 PC_MUX(
+        .SEL(2'b00), // hardcoded to nextpc until flow control is established
+        .D0(next_pc),
+        .D1(), // jalr
+        .D2(), // branch
+        .D3(), // jal
+        .DOUT(pc_in) // pc_in
+    );
+
+    PC PROG_COUNTER(
+        .CLK(CLK),
+        .RST(RST),
+        .PC_EN(1'b1), // hardcoded to never stall (will change with flow control logic)
+        .PC_IN(pc_in),
+        .PC_OUT(pc_out)
+    );
+
+    IMEM PROG_MEMORY(
+        .CLK(CLK),
+        .RDEN(1'b1), // hardcoded to never stall
+        .ADDR(pc_out[15:2]),
+        .MEM_OUT(ir)
+    );
+
+    always_ff@(posedge CLK) begin
+        fd.PC         <= pc_out;
+        fd.NEXTPC     <= next_pc;
+        fd.IR         <= ir;
+        fd.ADDR1      <= ir[19:15];
+        fd.ADDR2      <= ir[24:20];
+        fd.WADDR      <= ir [11:7];
+    end
+
     logic [31:0] rs1, rs2, w_data;
 
-    
+
+    REG_FILE RF(
+        .CLK(CLK),
+        .ADDR1(fd.ADDR1),
+        .ADDR2(fd.ADDR2),
+        .W_ADDR(mw.WADDR),
+        .W_EN(mw.REG_WRITE),
+        .W_DATA(w_data),
+        .RS1(rs1),
+        .RS2(rs2)
+    );
+
     logic [1:0] pc_sel;
     logic [1:0] rf_sel;
     logic reg_write;
@@ -54,129 +82,6 @@ module EEL (
     logic [31:0] alu_op_b;
     logic [31:0] alu_result;
     logic zero;
-    
-    logic [31:0] dout;
-
-    HAZ_UNIT HAZ_CTRL(
-
-        .CLK(CLK),
-
-        .D_ADDR1(fd.IR[19:15]),
-        .D_ADDR2(fd.IR[24:20]),
-        .D_WADDR(fd.IR[11:7]),
-        .D_OP   (fd.IR[6:0]),
-
-        .E_ADDR1(de.IR[19:15]),
-        .E_ADDR2(de.IR[24:20]),
-        .E_WADDR(de.IR[11:7]),
-        .E_OP   (de.IR[6:0]),
-
-        .M_ADDR1(em.IR[19:15]),
-        .M_ADDR2(em.IR[24:20]),
-        .M_WADDR(em.IR[11:7]),
-        .M_OP   (em.IR[6:0]),
-
-        .W_ADDR1(mw.IR[19:15]),
-        .W_ADDR2(mw.IR[24:20]),
-        .W_WADDR(mw.IR[11:7]),
-        .W_OP   (mw.IR[6:0]),
-
-        .STALL(stall),
-        .FLUSH(flush),
-
-        .FWD_RS1(fwd_rs1),
-        .FWD_RS2(fwd_rs2),
-        .FWD_SRCA(fwd_srca),
-        .FWD_SRCB(fwd_srcb),
-        .FWD_DIN(fwd_din)
-    
-    );
-
-    MUX4T1 PC_MUX(
-        .SEL(2'b00), // hardcoded to nextpc until flow control is established
-        .D0(next_pc),
-        .D1(), // jalr
-        .D2(), // branch
-        .D3(), // jal
-        .DOUT(pc_in) // pc_in
-    );
-
-    PC PROG_COUNTER(
-        .CLK(CLK),
-        .RST(RST),
-        .PC_EN(!stall), // hardcoded to never stall (will change with flow control logic)
-        .PC_IN(pc_in),
-        .PC_OUT(pc_out)
-    );
-
-    IMEM PROG_MEMORY(
-        .CLK(CLK),
-        .RDEN(1'b1), // hardcoded to never stall
-        .ADDR(pc_out[15:2]),
-        .MEM_OUT(ir)
-    );
-
-    always_ff@(posedge CLK) begin
-        fd.PC         <= pc_out;
-        fd.NEXTPC     <= next_pc;
-        fd.IR         <= ir;
-        fd.ADDR1      <= ir[19:15];
-        fd.ADDR2      <= ir[24:20];
-        fd.WADDR      <= ir [11:7];
-
-        if(stall) begin
-            fd.PC         <= fd.PC;
-            fd.NEXTPC     <= fd.NEXTPC;
-            fd.IR         <= fd.IR;
-            fd.ADDR1      <= fd.ADDR1;
-            fd.ADDR2      <= fd.ADDR2;
-            fd.WADDR      <= fd.WADDR;
-        end
-
-    end
-
-    REG_FILE RF(
-        .CLK(CLK),
-        .ADDR1(fd.ADDR1),
-        .ADDR2(fd.ADDR2),
-        .W_ADDR(mw.WADDR),
-        .W_EN(mw.REG_WRITE),
-        .W_DATA(w_data),
-        .RS1(rs1),
-        .RS2(rs2)
-    );
-
-    MUX4T1 FWD_RS1_MUX(
-        .SEL(fwd_rs1),
-        .D0(rs1),
-        .D1(alu_result),
-        .D2(em.ALU_RESULT),
-        .D3(mw.ALU_RESULT),
-        .DOUT(rs1_fwd)
-    );
-
-    MUX4T1 FWD_RS2_MUX(
-        .SEL(fwd_rs2),
-        .D0(rs1),
-        .D1(alu_result),
-        .D2(em.ALU_RESULT),
-        .D3(mw.ALU_RESULT),
-        .DOUT(rs2_fwd)
-    );
-
-    MUX2T1 FWD_SRCA_MUX(
-        .SEL(fwd_srca),
-        .D0(de.RS1),
-        .D1(w_data),
-        .DOUT(srca_fwd)
-    );
-
-    MUX2T1 FWD_SRCB_MUX(
-        .SEL(fwd_srca),
-        .D0(de.RS2),
-        .D1(w_data),
-        .DOUT(srcb_fwd)
-    );
 
     DECODER CTRL_UNIT(
         .OPCODE(fd.IR[6:0]),
@@ -214,8 +119,8 @@ module EEL (
         de.WADDR      <= fd.WADDR;
 
         // signals generated in DECODE
-        de.RS1        <= rs1_fwd;
-        de.RS2        <= rs2_fwd;
+        de.RS1        <= rs1;
+        de.RS2        <= rs2;
         de.RF_SEL     <= rf_sel;
         de.REG_WRITE  <= reg_write;
         de.PC_SEL     <= pc_sel;
@@ -231,43 +136,17 @@ module EEL (
         de.SRC_B_SEL  <= src_b_sel;
         de.IMM_SEL    <= imm_sel;
         de.IMM        <= imm;
-
-        if(stall) begin
-            de.PC         <= de.PC;          
-            de.NEXTPC     <= de.NEXTPC;      
-            de.IR         <= 32'h0000_0000;          
-            de.ADDR1      <= 'b0;       
-            de.ADDR2      <= 'b0;       
-            de.WADDR      <= 'b0;      
-            de.RS1        <= 'b0;         
-            de.RS2        <= 'b0;         
-            de.RF_SEL     <= 2'b00;      
-            de.REG_WRITE  <= 1'b0;   
-            de.PC_SEL     <= 2'b0;      
-            de.MEM_WRITE  <= 1'b0;  
-            de.MEM_READ   <= 1'b0;    
-            de.SIGN       <= 1'b0;        
-            de.BYTE_SEL   <= 2'b00;    
-            de.BRANCH     <= 1'b0;      
-            de.BR_TYPE    <= 3'b000;     
-            de.JUMP       <= 1'b0;        
-            de.ALU_FUN    <= 4'b0000;     
-            de.SRC_A_SEL  <= 1'b0;   
-            de.SRC_B_SEL  <= 2'b00;   
-            de.IMM_SEL    <= 3'b000;   
-            de.IMM        <= 32'b00;
-        end          
     end
 
     MUX2T1 ALU_SRC_A(
-        .D0(srca_fwd),
+        .D0(de.RS1),
         .D1(de.IMM),
         .SEL(de.SRC_A_SEL),
         .DOUT(alu_op_a)
     );
 
     MUX4T1 ALU_SRC_B(
-        .D0(srcb_fwd),
+        .D0(de.RS2),
         .D1(de.IMM),
         .D2(de.PC),
         .D3(32'b0), // could make nextpc if needed
@@ -293,29 +172,23 @@ module EEL (
         em.WADDR      <= de.WADDR;  
 
         // signals generated in DECODE
-        em.RS1        <= de.RS1;
-        em.RS2        <= de.RS2;
-        em.RF_SEL     <= de.RF_SEL;
-        em.REG_WRITE  <= de.REG_WRITE;
- 
-        em.MEM_WRITE  <= de.MEM_WRITE;
-        em.MEM_READ   <= de.MEM_READ;
-        em.SIGN       <= de.SIGN;
-        em.BYTE_SEL   <= de.BYTE_SEL;
+        em.RS1       <= de.RS1;
+        em.RS2       <= de.RS2;
+        em.RF_SEL    <= de.RF_SEL;
+        em.REG_WRITE <= de.REG_WRITE;
+
+        em.MEM_WRITE <= de.MEM_WRITE;
+        em.MEM_READ  <= de.MEM_READ;
+        em.SIGN      <= de.SIGN;
+        em.BYTE_SEL  <= de.BYTE_SEL;
 
         // signals generated in EXECUTE
         em.ALU_RESULT <= alu_result;
-        em.ZERO       <= zero;  
-
+        em.ZERO <= zero;    
     end
 
-    
-    MUX2T1 FWD_DIN_MUX(
-        .SEL(fwd_din),
-        .D0(em.RS2),
-        .D1(w_data),
-        .DOUT(din_fwd)
-    );
+    logic [31:0] dout;
+
     DMEM DATA_MEMORY(
         .CLK(CLK),
         .RDEN(em.MEM_READ),
@@ -323,7 +196,7 @@ module EEL (
         .BYTE_SEL(em.BYTE_SEL),
         .SIGN(em.SIGN),
         .ADDR(em.ALU_RESULT[15:2]),
-        .DATA_IN(din_fwd),
+        .DATA_IN(em.RS2),
         .DATA_OUT(dout)
     );
 

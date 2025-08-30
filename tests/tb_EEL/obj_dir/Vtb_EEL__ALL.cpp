@@ -5,6 +5,7 @@
 #include "Vtb_EEL___024root__DepSet_h4f0f4138__0.cpp"
 #include "Vtb_EEL__main.cpp"
 #include "Vtb_EEL__Trace__0.cpp"
+#include "Vtb_EEL__ConstPool_0.cpp"
 #include "Vtb_EEL___024root__Slow.cpp"
 #include "Vtb_EEL___024root__DepSet_h24a998a0__0__Slow.cpp"
 #include "Vtb_EEL___024root__DepSet_h4f0f4138__0__Slow.cpp"

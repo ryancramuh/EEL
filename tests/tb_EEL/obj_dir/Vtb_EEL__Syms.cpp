@@ -44,7 +44,7 @@ Vtb_EEL__Syms::Vtb_EEL__Syms(VerilatedContext* contextp, const char* namep, Vtb_
     , TOP{this, namep}
 {
         // Check resources
-        Verilated::stackCheck(70);
+        Verilated::stackCheck(234);
     // Configure time unit / time precision
     _vm_contextp__->timeunit(-9);
     _vm_contextp__->timeprecision(-12);
