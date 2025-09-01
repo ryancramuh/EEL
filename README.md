@@ -27,5 +27,8 @@ Though many iterations of the OTTER exist, no accessible version has been develo
 - As of 9/1/2025, hazards are being implemented to the core.
 - Limited cases of hazards have been tested, with no control transfer instructions implemented. 
 - The next step is to validate the current Hazard Unit and implement jumps/branches 
-## Current Schematic
+## Original Schematic
 <img src="./images/EEL_DIAGRAM.svg" alt="Project logo" width="2000">
+
+## Hazard Forwarding Schematic 
+<img src="./images/EEL_HAZ_DIAGRAM.svg" alt="Project logo" width="2000">
