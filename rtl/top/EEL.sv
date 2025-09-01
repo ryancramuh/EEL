@@ -127,7 +127,7 @@ module EEL (
         if(stall) begin
             fd.PC         <= fd.PC;    
             fd.NEXTPC     <= fd.NEXTPC;
-            fd.IR         <= ir;    
+            fd.IR         <= fd.IR;    
             fd.ADDR1      <= fd.ADDR1; 
             fd.ADDR2      <= fd.ADDR2; 
             fd.WADDR      <= fd.WADDR; 
@@ -151,16 +151,16 @@ module EEL (
         .D0(rs1),
         .D1(alu_result),
         .D2(em.ALU_RESULT),
-        .D3(mw.ALU_RESULT),
+        .D3(w_data),
         .DOUT(rs1_fwd)
     );
 
     MUX4T1 FWD_RS2_MUX(
         .SEL(fwd_rs2),
-        .D0(rs1),
+        .D0(rs2),
         .D1(alu_result),
         .D2(em.ALU_RESULT),
-        .D3(mw.ALU_RESULT),
+        .D3(w_data),
         .DOUT(rs2_fwd)
     );
 
@@ -172,7 +172,7 @@ module EEL (
     );
 
     MUX2T1 FWD_SRCB_MUX(
-        .SEL(fwd_srca),
+        .SEL(fwd_srcb),
         .D0(de.RS2),
         .D1(w_data),
         .DOUT(srcb_fwd)
@@ -233,29 +233,29 @@ module EEL (
         de.IMM        <= imm;
 
         if(stall) begin
-            de.PC         <= de.PC;                   
-            de.NEXTPC     <= de.NEXTPC;           
-            de.IR         <= de.IR;                   
-            de.ADDR1      <= de.ADDR1;      
-            de.ADDR2      <= de.ADDR2;     
-            de.WADDR      <= de.WADDR;      
-            de.RS1        <= de.RS1;        
-            de.RS2        <= de.RS2;        
-            de.RF_SEL     <= de.RF_SEL;           
-            de.REG_WRITE  <= de.REG_WRITE;     
-            de.PC_SEL     <= de.PC_SEL;           
-            de.MEM_WRITE  <= de.MEM_WRITE;    
-            de.MEM_READ   <= de.MEM_READ;       
-            de.SIGN       <= de.SIGN;               
-            de.BYTE_SEL   <= de.BYTE_SEL;       
-            de.BRANCH     <= de.BRANCH;           
-            de.BR_TYPE    <= de.BR_TYPE;         
-            de.JUMP       <= de.JUMP;               
-            de.ALU_FUN    <= de.ALU_FUN;         
-            de.SRC_A_SEL  <= de.SRC_A_SEL;     
-            de.SRC_B_SEL  <= de.SRC_B_SEL;     
-            de.IMM_SEL    <= de.IMM_SEL;       
-            de.IMM        <= de.IMM;        
+            de.PC         <= 'b0;                   
+            de.NEXTPC     <= 'b0;           
+            de.IR         <= 'b0;                   
+            de.ADDR1      <= 'b0;      
+            de.ADDR2      <= 'b0;     
+            de.WADDR      <= 'b0;      
+            de.RS1        <= 'b0;        
+            de.RS2        <= 'b0;        
+            de.RF_SEL     <= 'b0;           
+            de.REG_WRITE  <= 'b0;     
+            de.PC_SEL     <= 'b0;           
+            de.MEM_WRITE  <= 'b0;    
+            de.MEM_READ   <= 'b0;       
+            de.SIGN       <= 'b0;               
+            de.BYTE_SEL   <= 'b0;       
+            de.BRANCH     <= 'b0;           
+            de.BR_TYPE    <= 'b0;         
+            de.JUMP       <= 'b0;               
+            de.ALU_FUN    <= 'b0;         
+            de.SRC_A_SEL  <= 'b0;     
+            de.SRC_B_SEL  <= 'b0;     
+            de.IMM_SEL    <= 'b0;       
+            de.IMM        <= 'b0;        
         end          
     end
 
@@ -293,8 +293,8 @@ module EEL (
         em.WADDR      <= de.WADDR;  
 
         // signals generated in DECODE
-        em.RS1        <= de.RS1;
-        em.RS2        <= de.RS2;
+        em.RS1        <= srca_fwd;
+        em.RS2        <= srcb_fwd;
         em.RF_SEL     <= de.RF_SEL;
         em.REG_WRITE  <= de.REG_WRITE;
  
@@ -306,32 +306,7 @@ module EEL (
         // signals generated in EXECUTE
         em.ALU_RESULT <= alu_result;
         em.ZERO       <= zero;  
-
-        if(stall) begin
-            em.PC         <= de.PC;       
-            em.NEXTPC     <= de.NEXTPC;     
-            em.IR         <= 32'h0000_0000;         
-            em.ADDR1      <= de.ADDR1;      
-            em.ADDR2      <= de.ADDR2;      
-            em.WADDR      <= 5'b00000;  
-
-            // signals generated in DECODE
-            em.RS1        <= de.RS1;
-            em.RS2        <= de.RS2;
-            em.RF_SEL     <= de.RF_SEL;
-            em.REG_WRITE  <= 1'b0;
-    
-            em.MEM_WRITE  <= 1'b0;
-            em.MEM_READ   <= 1'b0;
-            em.SIGN       <= de.SIGN;
-            em.BYTE_SEL   <= de.BYTE_SEL;
-
-            // signals generated in EXECUTE
-            em.ALU_RESULT <= 32'b0;
-            em.ZERO       <= 1'b0;  
-        end
     end
-
     
     MUX2T1 FWD_DIN_MUX(
         .SEL(fwd_din),

@@ -12,3 +12,15 @@ parameter JALR   = 7'b1100111; // rd
 parameter BRANCH = 7'b1100011; // rs1 and rs2
 
 `endif
+
+/*
+    LUI = 37
+    AUIPC = 17
+    STORE = 23
+    LOAD = 03
+    IMM = 13
+    REG = 33
+    JAL = 6f
+    JALR = 67
+    BRANCH = 63
+*/

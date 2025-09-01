@@ -2,7 +2,7 @@
 
 // module: tb_EEL
 // author: Ryan Cramer
-
+`include "opcodes.svh"
 module tb_EEL();
     
     logic CLK;

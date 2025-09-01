@@ -17,8 +17,18 @@ module REG_FILE(
     logic [31:0] reg_32x32 [0:31];
     
     always_comb begin // asynchronous reads
-        RS1 = reg_32x32[ADDR1];
-        RS2 = reg_32x32[ADDR2];
+        if(ADDR1 != 5'b00000) begin
+            RS1 = reg_32x32[ADDR1];
+        end
+        else begin
+            RS1 = 32'b0;
+        end
+        if(ADDR2 != 5'b00000) begin
+            RS2 = reg_32x32[ADDR2];
+        end
+        else begin
+            RS2 = 32'b0;
+        end
     end
 
     always_ff@(posedge CLK) begin // synchronous writes

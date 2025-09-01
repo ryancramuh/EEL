@@ -68,11 +68,11 @@ module HAZ_UNIT (
     
     assign ed_fwd1 = ((D_ADDR1 == E_WADDR) && (D_OP != LUI)&&
                      (D_OP != AUIPC) && (D_OP != JAL) && 
-                     (E_OP != LOAD) && (E_WADDR != 5'b00000) && !we_load_fwd1);
+                     (E_OP != LOAD) && (E_WADDR != 5'b00000));
     
     assign ed_fwd2 = ((D_ADDR2 == E_WADDR) && (D_OP != LUI)&&
                      (D_OP != AUIPC) && (D_OP != JAL) && 
-                     (E_OP != LOAD) && (E_WADDR != 5'b00000) && !we_load_fwd2);
+                     (E_OP != LOAD) && (E_WADDR != 5'b00000));
 
     assign md_fwd1 = ((D_ADDR1 == M_WADDR) && (D_OP != LUI)&&
                      (D_OP != AUIPC) && (D_OP != JAL) && 
@@ -103,7 +103,7 @@ module HAZ_UNIT (
         FWD_RS1 = 2'b00; // normal RS1 in MEM
         FWD_SRCA = 1'b0; // normal RS1 in DE
 
-        if(ed_fwd1 && !we_load_fwd1) begin
+        if(ed_fwd1) begin
             FWD_RS1 = 2'b01; // EXECUTE 
         end
         else if (md_fwd1) begin
@@ -127,7 +127,7 @@ module HAZ_UNIT (
         FWD_SRCB = 1'b0; // normal RS2 in EX
         FWD_DIN = 1'b0;  // normal RS2 in MEM
         
-        if(ed_fwd2 && !we_load_fwd2) begin
+        if(ed_fwd2) begin
             FWD_RS2 = 2'b01; // EXECUTE 
         end
         

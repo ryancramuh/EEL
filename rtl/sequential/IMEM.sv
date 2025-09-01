@@ -20,10 +20,10 @@ end
 
 always_ff@(posedge CLK) begin
     if(RDEN) begin
-        MEM_OUT <= rom_64kb[ADDR];
+        MEM_OUT = rom_64kb[ADDR];
     end
     else begin
-        MEM_OUT <= 'b0;
+        MEM_OUT = 'b0;
     end
 end
 

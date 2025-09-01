@@ -249,16 +249,16 @@ VL_ATTR_COLD void Vtb_EEL___024root__trace_init_sub__TOP__0(Vtb_EEL___024root* v
     tracep->declBus(c+124,0,"D0",-1, VerilatedTraceSigDirection::INPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
     tracep->declBus(c+144,0,"D1",-1, VerilatedTraceSigDirection::INPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
     tracep->declBus(c+71,0,"D2",-1, VerilatedTraceSigDirection::INPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
-    tracep->declBus(c+98,0,"D3",-1, VerilatedTraceSigDirection::INPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
+    tracep->declBus(c+126,0,"D3",-1, VerilatedTraceSigDirection::INPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
     tracep->declBus(c+116,0,"DOUT",-1, VerilatedTraceSigDirection::OUTPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
     tracep->popPrefix();
     tracep->pushPrefix("FWD_RS2_MUX", VerilatedTracePrefixType::SCOPE_MODULE);
     tracep->declBus(c+223,0,"n",-1, VerilatedTraceSigDirection::NONE, VerilatedTraceSigKind::PARAMETER, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
     tracep->declBus(c+112,0,"SEL",-1, VerilatedTraceSigDirection::INPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1, 1,0);
-    tracep->declBus(c+124,0,"D0",-1, VerilatedTraceSigDirection::INPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
+    tracep->declBus(c+125,0,"D0",-1, VerilatedTraceSigDirection::INPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
     tracep->declBus(c+144,0,"D1",-1, VerilatedTraceSigDirection::INPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
     tracep->declBus(c+71,0,"D2",-1, VerilatedTraceSigDirection::INPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
-    tracep->declBus(c+98,0,"D3",-1, VerilatedTraceSigDirection::INPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
+    tracep->declBus(c+126,0,"D3",-1, VerilatedTraceSigDirection::INPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
     tracep->declBus(c+117,0,"DOUT",-1, VerilatedTraceSigDirection::OUTPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
     tracep->popPrefix();
     tracep->pushPrefix("FWD_SRCA_MUX", VerilatedTracePrefixType::SCOPE_MODULE);
@@ -270,7 +270,7 @@ VL_ATTR_COLD void Vtb_EEL___024root__trace_init_sub__TOP__0(Vtb_EEL___024root* v
     tracep->popPrefix();
     tracep->pushPrefix("FWD_SRCB_MUX", VerilatedTracePrefixType::SCOPE_MODULE);
     tracep->declBus(c+223,0,"n",-1, VerilatedTraceSigDirection::NONE, VerilatedTraceSigKind::PARAMETER, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
-    tracep->declBit(c+113,0,"SEL",-1, VerilatedTraceSigDirection::INPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1);
+    tracep->declBit(c+114,0,"SEL",-1, VerilatedTraceSigDirection::INPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1);
     tracep->declBus(c+33,0,"D0",-1, VerilatedTraceSigDirection::INPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
     tracep->declBus(c+126,0,"D1",-1, VerilatedTraceSigDirection::INPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
     tracep->declBus(c+119,0,"DOUT",-1, VerilatedTraceSigDirection::OUTPUT, VerilatedTraceSigKind::WIRE, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
@@ -381,7 +381,6 @@ VL_ATTR_COLD void Vtb_EEL___024root__trace_init_sub__TOP____024unit__0(Vtb_EEL__
     // Init
     const int c = vlSymsp->__Vm_baseCode;
     // Body
-    tracep->declBus(c+223,0,"XLEN",-1, VerilatedTraceSigDirection::NONE, VerilatedTraceSigKind::PARAMETER, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
     tracep->declBus(c+233,0,"LUI",-1, VerilatedTraceSigDirection::NONE, VerilatedTraceSigKind::PARAMETER, VerilatedTraceSigType::LOGIC, false,-1, 6,0);
     tracep->declBus(c+234,0,"AUIPC",-1, VerilatedTraceSigDirection::NONE, VerilatedTraceSigKind::PARAMETER, VerilatedTraceSigType::LOGIC, false,-1, 6,0);
     tracep->declBus(c+235,0,"STORE",-1, VerilatedTraceSigDirection::NONE, VerilatedTraceSigKind::PARAMETER, VerilatedTraceSigType::LOGIC, false,-1, 6,0);
@@ -391,6 +390,7 @@ VL_ATTR_COLD void Vtb_EEL___024root__trace_init_sub__TOP____024unit__0(Vtb_EEL__
     tracep->declBus(c+239,0,"JAL",-1, VerilatedTraceSigDirection::NONE, VerilatedTraceSigKind::PARAMETER, VerilatedTraceSigType::LOGIC, false,-1, 6,0);
     tracep->declBus(c+240,0,"JALR",-1, VerilatedTraceSigDirection::NONE, VerilatedTraceSigKind::PARAMETER, VerilatedTraceSigType::LOGIC, false,-1, 6,0);
     tracep->declBus(c+241,0,"BRANCH",-1, VerilatedTraceSigDirection::NONE, VerilatedTraceSigKind::PARAMETER, VerilatedTraceSigType::LOGIC, false,-1, 6,0);
+    tracep->declBus(c+223,0,"XLEN",-1, VerilatedTraceSigDirection::NONE, VerilatedTraceSigKind::PARAMETER, VerilatedTraceSigType::LOGIC, false,-1, 31,0);
 }
 
 VL_ATTR_COLD void Vtb_EEL___024root__trace_init_top(Vtb_EEL___024root* vlSelf, VerilatedVcd* tracep) {
@@ -727,49 +727,61 @@ VL_ATTR_COLD void Vtb_EEL___024root__trace_full_0_sub_0(Vtb_EEL___024root* vlSel
     bufp->fullBit(oldp+115,(vlSelfRef.tb_EEL__DOT__UUT__DOT__fwd_din));
     bufp->fullIData(oldp+116,(((2U & (IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__fwd_rs1))
                                 ? ((1U & (IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__fwd_rs1))
-                                    ? ((vlSelfRef.tb_EEL__DOT__UUT__DOT__mw[1U] 
+                                    ? vlSelfRef.tb_EEL__DOT__UUT__DOT__w_data
+                                    : ((vlSelfRef.tb_EEL__DOT__UUT__DOT__em[1U] 
                                         << 0x13U) | 
-                                       (vlSelfRef.tb_EEL__DOT__UUT__DOT__mw[0U] 
-                                        >> 0xdU)) : 
-                                   ((vlSelfRef.tb_EEL__DOT__UUT__DOT__em[1U] 
-                                     << 0x13U) | (vlSelfRef.tb_EEL__DOT__UUT__DOT__em[0U] 
-                                                  >> 0xdU)))
-                                : ((1U & (IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__fwd_rs1))
-                                    ? vlSelfRef.tb_EEL__DOT__UUT__DOT__alu_result
-                                    : vlSelfRef.tb_EEL__DOT__UUT__DOT__rs1))),32);
+                                       (vlSelfRef.tb_EEL__DOT__UUT__DOT__em[0U] 
+                                        >> 0xdU))) : 
+                               ((1U & (IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__fwd_rs1))
+                                 ? vlSelfRef.tb_EEL__DOT__UUT__DOT__alu_result
+                                 : ((0U != (0x1fU & 
+                                            (vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[3U] 
+                                             >> 4U)))
+                                     ? vlSelfRef.tb_EEL__DOT__UUT__DOT__RF__DOT__reg_32x32
+                                    [(0x1fU & (vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[3U] 
+                                               >> 4U))]
+                                     : 0U)))),32);
     bufp->fullIData(oldp+117,(((2U & (IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__fwd_rs2))
                                 ? ((1U & (IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__fwd_rs2))
-                                    ? ((vlSelfRef.tb_EEL__DOT__UUT__DOT__mw[1U] 
-                                        << 0x13U) | 
-                                       (vlSelfRef.tb_EEL__DOT__UUT__DOT__mw[0U] 
-                                        >> 0xdU)) : 
-                                   ((vlSelfRef.tb_EEL__DOT__UUT__DOT__em[1U] 
-                                     << 0x13U) | (vlSelfRef.tb_EEL__DOT__UUT__DOT__em[0U] 
-                                                  >> 0xdU)))
-                                : ((1U & (IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__fwd_rs2))
-                                    ? vlSelfRef.tb_EEL__DOT__UUT__DOT__alu_result
-                                    : vlSelfRef.tb_EEL__DOT__UUT__DOT__rs1))),32);
-    bufp->fullIData(oldp+118,(vlSelfRef.tb_EEL__DOT__UUT__DOT__srca_fwd),32);
-    bufp->fullIData(oldp+119,(((IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__fwd_srca)
-                                ? ((IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__fwd_srca)
                                     ? vlSelfRef.tb_EEL__DOT__UUT__DOT__w_data
-                                    : ((vlSelfRef.tb_EEL__DOT__UUT__DOT__de[4U] 
-                                        << 0x17U) | 
-                                       (vlSelfRef.tb_EEL__DOT__UUT__DOT__de[3U] 
-                                        >> 9U))) : 
-                               ((vlSelfRef.tb_EEL__DOT__UUT__DOT__de[4U] 
-                                 << 0x17U) | (vlSelfRef.tb_EEL__DOT__UUT__DOT__de[3U] 
-                                              >> 9U)))),32);
+                                    : ((vlSelfRef.tb_EEL__DOT__UUT__DOT__em[1U] 
+                                        << 0x13U) | 
+                                       (vlSelfRef.tb_EEL__DOT__UUT__DOT__em[0U] 
+                                        >> 0xdU))) : 
+                               ((1U & (IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__fwd_rs2))
+                                 ? vlSelfRef.tb_EEL__DOT__UUT__DOT__alu_result
+                                 : ((0U != (0x1fU & 
+                                            ((vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[3U] 
+                                              << 1U) 
+                                             | (vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[2U] 
+                                                >> 0x1fU))))
+                                     ? vlSelfRef.tb_EEL__DOT__UUT__DOT__RF__DOT__reg_32x32
+                                    [(0x1fU & ((vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[3U] 
+                                                << 1U) 
+                                               | (vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[2U] 
+                                                  >> 0x1fU)))]
+                                     : 0U)))),32);
+    bufp->fullIData(oldp+118,(vlSelfRef.tb_EEL__DOT__UUT__DOT__srca_fwd),32);
+    bufp->fullIData(oldp+119,(vlSelfRef.tb_EEL__DOT__UUT__DOT__srcb_fwd),32);
     bufp->fullIData(oldp+120,(vlSelfRef.tb_EEL__DOT__UUT__DOT__din_fwd),32);
     bufp->fullIData(oldp+121,(((IData)(4U) + vlSelfRef.tb_EEL__DOT__UUT__DOT__pc_out)),32);
     bufp->fullIData(oldp+122,(vlSelfRef.tb_EEL__DOT__UUT__DOT__pc_out),32);
     bufp->fullIData(oldp+123,(vlSelfRef.tb_EEL__DOT__UUT__DOT__ir),32);
-    bufp->fullIData(oldp+124,(vlSelfRef.tb_EEL__DOT__UUT__DOT__rs1),32);
-    bufp->fullIData(oldp+125,(vlSelfRef.tb_EEL__DOT__UUT__DOT__RF__DOT__reg_32x32
-                              [(0x1fU & ((vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[3U] 
-                                          << 1U) | 
-                                         (vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[2U] 
-                                          >> 0x1fU)))]),32);
+    bufp->fullIData(oldp+124,(((0U != (0x1fU & (vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[3U] 
+                                                >> 4U)))
+                                ? vlSelfRef.tb_EEL__DOT__UUT__DOT__RF__DOT__reg_32x32
+                               [(0x1fU & (vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[3U] 
+                                          >> 4U))] : 0U)),32);
+    bufp->fullIData(oldp+125,(((0U != (0x1fU & ((vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[3U] 
+                                                 << 1U) 
+                                                | (vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[2U] 
+                                                   >> 0x1fU))))
+                                ? vlSelfRef.tb_EEL__DOT__UUT__DOT__RF__DOT__reg_32x32
+                               [(0x1fU & ((vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[3U] 
+                                           << 1U) | 
+                                          (vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[2U] 
+                                           >> 0x1fU)))]
+                                : 0U)),32);
     bufp->fullIData(oldp+126,(vlSelfRef.tb_EEL__DOT__UUT__DOT__w_data),32);
     bufp->fullCData(oldp+127,(vlSelfRef.tb_EEL__DOT__UUT__DOT__pc_sel),2);
     bufp->fullCData(oldp+128,(vlSelfRef.tb_EEL__DOT__UUT__DOT__rf_sel),2);
@@ -978,7 +990,7 @@ VL_ATTR_COLD void Vtb_EEL___024root__trace_full_0_sub_0(Vtb_EEL___024root* vlSel
                                         >> 0x1aU)) 
                               == (0x1fU & (vlSelfRef.tb_EEL__DOT__UUT__DOT__mw[5U] 
                                            >> 0x12U))) 
-                             & ((IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT____VdfgRegularize_hb9c15412_0_14) 
+                             & ((IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT____VdfgRegularize_hb9c15412_0_12) 
                                 & ((~ (IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT__ed_fwd1)) 
                                    & ((0x6fU != (0x7fU 
                                                  & (vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[5U] 
@@ -993,7 +1005,7 @@ VL_ATTR_COLD void Vtb_EEL___024root__trace_full_0_sub_0(Vtb_EEL___024root* vlSel
                                                    >> 0x1fU))) 
                               == (0x1fU & (vlSelfRef.tb_EEL__DOT__UUT__DOT__mw[5U] 
                                            >> 0x12U))) 
-                             & ((IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT____VdfgRegularize_hb9c15412_0_14) 
+                             & ((IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT____VdfgRegularize_hb9c15412_0_12) 
                                 & ((~ (IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT__ed_fwd2)) 
                                    & ((0x6fU != (0x7fU 
                                                  & (vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[5U] 
@@ -1016,8 +1028,18 @@ VL_ATTR_COLD void Vtb_EEL___024root__trace_full_0_sub_0(Vtb_EEL___024root* vlSel
                                         == (0x1fU & 
                                             (vlSelfRef.tb_EEL__DOT__UUT__DOT__mw[5U] 
                                              >> 0x12U)))))));
-    bufp->fullBit(oldp+179,(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT__we_load_fwd1));
-    bufp->fullBit(oldp+180,(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT__we_load_fwd2));
+    bufp->fullBit(oldp+179,(((IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT____VdfgRegularize_hb9c15412_0_11) 
+                             & ((0x1fU & (vlSelfRef.tb_EEL__DOT__UUT__DOT__de[5U] 
+                                          >> 0x1aU)) 
+                                == (0x1fU & (vlSelfRef.tb_EEL__DOT__UUT__DOT__mw[5U] 
+                                             >> 0x12U))))));
+    bufp->fullBit(oldp+180,(((IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT____VdfgRegularize_hb9c15412_0_11) 
+                             & ((0x1fU & ((vlSelfRef.tb_EEL__DOT__UUT__DOT__de[6U] 
+                                           << 1U) | 
+                                          (vlSelfRef.tb_EEL__DOT__UUT__DOT__de[5U] 
+                                           >> 0x1fU))) 
+                                == (0x1fU & (vlSelfRef.tb_EEL__DOT__UUT__DOT__mw[5U] 
+                                             >> 0x12U))))));
     bufp->fullIData(oldp+181,((0x1ffffffU & ((vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[6U] 
                                               << 0xeU) 
                                              | (vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[5U] 
