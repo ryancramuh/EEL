@@ -68,32 +68,31 @@ module HAZ_UNIT (
     
     assign ed_fwd1 = ((D_ADDR1 == E_WADDR) && (D_OP != LUI)&&
                      (D_OP != AUIPC) && (D_OP != JAL) && 
-                     ((E_OP != STORE) || (D_OP != STORE)) &&
+                     (E_OP != STORE) &&
                      (E_OP != LOAD) && (E_WADDR != 5'b00000));
     
     assign ed_fwd2 = ((D_ADDR2 == E_WADDR) && (D_OP != LUI)&&
                      (D_OP != AUIPC) && (D_OP != JAL) &&
-                     ((E_OP != STORE) || (D_OP != STORE)) && 
+                     (E_OP != STORE) && 
                      (E_OP != LOAD) && (E_WADDR != 5'b00000));
 
     assign md_fwd1 = ((D_ADDR1 == M_WADDR) && (D_OP != LUI)&&
                      (D_OP != AUIPC) && (D_OP != JAL) &&
-                     ((M_OP != STORE) || (D_OP != STORE)) && 
+                     (M_OP != STORE) && 
                      (M_OP != LOAD) && (M_WADDR != 5'b00000) && !ed_fwd1);
 
     assign md_fwd2 = ((D_ADDR2 == M_WADDR) && (D_OP != LUI)&&
-                     (D_OP != AUIPC) && (D_OP != JAL) &&
-                     ((M_OP != STORE) || (D_OP != STORE)) && 
+                     (D_OP != AUIPC) && (D_OP != JAL) && (M_OP != STORE) && 
                      (M_OP != LOAD) && (M_WADDR != 5'b00000) && !ed_fwd2);
 
     assign wd_fwd1 = ((D_ADDR1 == W_WADDR) && (D_OP != LUI)&&
                      (D_OP != AUIPC) && (D_OP != JAL) &&
-                     ((W_OP != STORE) || (D_OP != STORE)) && 
+                     (W_OP != STORE)&& 
                      !ed_fwd1 && !md_fwd1 && (W_WADDR != 5'b00000));
     
     assign wd_fwd2 = ((D_ADDR2 == W_WADDR) && (D_OP != LUI)&&
                      (D_OP != AUIPC) && (D_OP != JAL) &&
-                     ((W_OP != STORE) || (D_OP != STORE)) && 
+                     (W_OP != STORE)&& 
                      !ed_fwd2 && !md_fwd2 && (W_WADDR != 5'b00000));
     
     assign flush_jalr = (D_OP == JALR);

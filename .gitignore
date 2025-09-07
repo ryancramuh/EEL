@@ -1,0 +1,5 @@
+# Ignore Verilator and Icarus build outputs in testbench directories
+tests/**/obj_dir/
+tests/**/a.out
+tests/**/results.log
+tests/**/build.log

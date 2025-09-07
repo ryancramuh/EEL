@@ -42,7 +42,7 @@ lb x5, 0(x4)
 lh x6, 4(x4)
 lw x7, 8(x4) 
 
-addi x7, x1, 200
+addi x7, x1, 201
 
 # order of events:
 # x3  -> c0e8
@@ -57,5 +57,8 @@ addi x7, x1, 200
 # x2  = c0e8
 # x3  = c0e8
 # x4  = c1b0
+# x5  = 0xffff00e8
+# x6  = 0xffffc0e8
+# x7  = 0x0000c0e8
 # x9  = 6010
 # x10 = 6010
