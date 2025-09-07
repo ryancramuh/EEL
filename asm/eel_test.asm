@@ -32,9 +32,17 @@ sub x2, x2, x9
 sub x2, x2, x9
 sw x3, 0(x2)
 lw x1, 0(x2)
-mv x2,x1
+mv x1,x2
 lw x4, 0(x1)
-addi x4, x1, 200
+sb x4, 0(x4)
+sh x4, 4(x4)
+sw x4, 8(x4)
+
+lb x5, 0(x4)
+lh x6, 4(x4)
+lw x7, 8(x4) 
+
+addi x7, x1, 200
 
 # order of events:
 # x3  -> c0e8
