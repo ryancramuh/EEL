@@ -557,34 +557,36 @@ void Vtb_EEL___024root__trace_chg_0_sub_0(Vtb_EEL___024root* vlSelf, VerilatedVc
                                            >> 0x1aU)) 
                                  == (0x1fU & (vlSelfRef.tb_EEL__DOT__UUT__DOT__mw[5U] 
                                               >> 0x12U))) 
-                                & ((IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT____VdfgRegularize_hb9c15412_0_12) 
-                                   & ((~ (IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT__ed_fwd1)) 
-                                      & ((0x6fU != 
-                                          (0x7fU & 
-                                           (vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[5U] 
-                                            >> 0xbU))) 
-                                         & ((~ (IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT__md_fwd1)) 
-                                            & (0U != 
-                                               (0x1fU 
-                                                & (vlSelfRef.tb_EEL__DOT__UUT__DOT__mw[5U] 
-                                                   >> 0x12U))))))))));
+                                & ((0x37U != (0x7fU 
+                                              & (vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[5U] 
+                                                 >> 0xbU))) 
+                                   & ((IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT____VdfgRegularize_hb9c15412_0_15) 
+                                      & ((~ (IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT__ed_fwd1)) 
+                                         & ((IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT____VdfgRegularize_hb9c15412_0_12) 
+                                            & ((~ (IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT__md_fwd1)) 
+                                               & (0U 
+                                                  != 
+                                                  (0x1fU 
+                                                   & (vlSelfRef.tb_EEL__DOT__UUT__DOT__mw[5U] 
+                                                      >> 0x12U)))))))))));
         bufp->chgBit(oldp+176,((((0x1fU & ((vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[6U] 
                                             << 1U) 
                                            | (vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[5U] 
                                               >> 0x1fU))) 
                                  == (0x1fU & (vlSelfRef.tb_EEL__DOT__UUT__DOT__mw[5U] 
                                               >> 0x12U))) 
-                                & ((IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT____VdfgRegularize_hb9c15412_0_12) 
-                                   & ((~ (IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT__ed_fwd2)) 
-                                      & ((0x6fU != 
-                                          (0x7fU & 
-                                           (vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[5U] 
-                                            >> 0xbU))) 
-                                         & ((~ (IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT__md_fwd2)) 
-                                            & (0U != 
-                                               (0x1fU 
-                                                & (vlSelfRef.tb_EEL__DOT__UUT__DOT__mw[5U] 
-                                                   >> 0x12U))))))))));
+                                & ((0x37U != (0x7fU 
+                                              & (vlSelfRef.tb_EEL__DOT__UUT__DOT__fd[5U] 
+                                                 >> 0xbU))) 
+                                   & ((IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT____VdfgRegularize_hb9c15412_0_15) 
+                                      & ((~ (IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT__ed_fwd2)) 
+                                         & ((IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT____VdfgRegularize_hb9c15412_0_12) 
+                                            & ((~ (IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT__md_fwd2)) 
+                                               & (0U 
+                                                  != 
+                                                  (0x1fU 
+                                                   & (vlSelfRef.tb_EEL__DOT__UUT__DOT__mw[5U] 
+                                                      >> 0x12U)))))))))));
         bufp->chgBit(oldp+177,((IData)((((0x11800U 
                                           == (0x3f800U 
                                               & vlSelfRef.tb_EEL__DOT__UUT__DOT__em[5U])) 
@@ -599,12 +601,12 @@ void Vtb_EEL___024root__trace_chg_0_sub_0(Vtb_EEL___024root* vlSelf, VerilatedVc
                                            == (0x1fU 
                                                & (vlSelfRef.tb_EEL__DOT__UUT__DOT__mw[5U] 
                                                   >> 0x12U)))))));
-        bufp->chgBit(oldp+178,(((IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT____VdfgRegularize_hb9c15412_0_11) 
+        bufp->chgBit(oldp+178,(((IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT____VdfgRegularize_hb9c15412_0_14) 
                                 & ((0x1fU & (vlSelfRef.tb_EEL__DOT__UUT__DOT__de[5U] 
                                              >> 0x1aU)) 
                                    == (0x1fU & (vlSelfRef.tb_EEL__DOT__UUT__DOT__mw[5U] 
                                                 >> 0x12U))))));
-        bufp->chgBit(oldp+179,(((IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT____VdfgRegularize_hb9c15412_0_11) 
+        bufp->chgBit(oldp+179,(((IData)(vlSelfRef.tb_EEL__DOT__UUT__DOT__HAZ_CTRL__DOT____VdfgRegularize_hb9c15412_0_14) 
                                 & ((0x1fU & ((vlSelfRef.tb_EEL__DOT__UUT__DOT__de[6U] 
                                               << 1U) 
                                              | (vlSelfRef.tb_EEL__DOT__UUT__DOT__de[5U] 
