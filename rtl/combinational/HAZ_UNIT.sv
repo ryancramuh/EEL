@@ -1,5 +1,7 @@
 `timescale 1ns/1ps
+
 `include "opcodes.svh"
+
 module HAZ_UNIT (
 
     input CLK,
@@ -44,10 +46,15 @@ module HAZ_UNIT (
      *      - if load then use hazard, you must stall then resolve by forwarding dout 
      *      - if normal data hazard, pipe ALU result from E, M, or W. */
 
+
     // flow control and pipeline control
     logic load_use_stall;
     logic flush_jalr;
     logic flush_jal;
+    
+    assign load_use_stall = (((D_ADDR1 == E_WADDR) || (D_ADDR2 == E_WADDR)) && (E_OP == LOAD));
+    assign flush_jalr = (D_OP == JALR);
+    assign flush_jal = (D_OP == JAL);
     
     // regular forwards
     logic ed_fwd1;
@@ -57,52 +64,82 @@ module HAZ_UNIT (
     logic wd_fwd1;
     logic wd_fwd2;
 
+    assign ed_fwd1 = (
+                    (D_ADDR1 == E_WADDR) && 
+                    (D_OP != LUI)&&
+                    (D_OP != AUIPC) && 
+                    (D_OP != JAL) && 
+                    (E_OP != STORE) &&
+                    (E_OP != LOAD) && 
+                    (E_WADDR != 5'b00000)
+    );
+    
+    assign ed_fwd2 = (
+                    (D_ADDR2 == E_WADDR) && 
+                    (D_OP != LUI)&&
+                    (D_OP != AUIPC) &&
+                    (D_OP != JAL) &&
+                    (E_OP != STORE) && 
+                    (E_OP != LOAD) &&
+                    (E_WADDR != 5'b00000)
+    );
+
+    assign md_fwd1 = (
+                    (D_ADDR1 == M_WADDR) && 
+                    (D_OP != LUI) &&
+                    (D_OP != AUIPC) && 
+                    (D_OP != JAL) &&
+                    (M_OP != STORE) && 
+                    (M_OP != LOAD) && 
+                    (M_WADDR != 5'b00000) && 
+                    !ed_fwd1
+    );
+
+    assign md_fwd2 = (
+                    (D_ADDR2 == M_WADDR) && 
+                    (D_OP != LUI)&&
+                    (D_OP != AUIPC) && 
+                    (D_OP != JAL) && 
+                    (M_OP != STORE) && 
+                    (M_OP != LOAD) && 
+                    (M_WADDR != 5'b00000) && 
+                    !ed_fwd2
+    );
+
+    assign wd_fwd1 = (
+                    (D_ADDR1 == W_WADDR) && 
+                    (D_OP != LUI)&&
+                    (D_OP != AUIPC) && 
+                    (D_OP != JAL) &&
+                    (W_OP != STORE)&& 
+                    (W_WADDR != 5'b00000) && 
+                    !ed_fwd1 && 
+                    !md_fwd1 
+    );
+    
+    assign wd_fwd2 = ((D_ADDR2 == W_WADDR) && 
+                    (D_OP != LUI)&&
+                    (D_OP != AUIPC) && (D_OP != JAL) &&
+                    (W_OP != STORE) && 
+                    (W_WADDR != 5'b00000) && 
+                    !ed_fwd2 && 
+                    !md_fwd2
+                    
+    );
+    
     // special cases
     logic wm_load_fwd2;
     logic we_load_fwd1;
     logic we_load_fwd2;
     
-    assign load_use_stall = (((D_ADDR1 == E_WADDR) || (D_ADDR2 == E_WADDR)) && (E_OP == LOAD));
-    
     assign wm_load_fwd2 = ((M_OP == STORE) && (W_OP == LOAD) && (W_WADDR == M_ADDR2));
-    
-    assign ed_fwd1 = ((D_ADDR1 == E_WADDR) && (D_OP != LUI)&&
-                     (D_OP != AUIPC) && (D_OP != JAL) && 
-                     (E_OP != STORE) &&
-                     (E_OP != LOAD) && (E_WADDR != 5'b00000));
-    
-    assign ed_fwd2 = ((D_ADDR2 == E_WADDR) && (D_OP != LUI)&&
-                     (D_OP != AUIPC) && (D_OP != JAL) &&
-                     (E_OP != STORE) && 
-                     (E_OP != LOAD) && (E_WADDR != 5'b00000));
-
-    assign md_fwd1 = ((D_ADDR1 == M_WADDR) && (D_OP != LUI)&&
-                     (D_OP != AUIPC) && (D_OP != JAL) &&
-                     (M_OP != STORE) && 
-                     (M_OP != LOAD) && (M_WADDR != 5'b00000) && !ed_fwd1);
-
-    assign md_fwd2 = ((D_ADDR2 == M_WADDR) && (D_OP != LUI)&&
-                     (D_OP != AUIPC) && (D_OP != JAL) && (M_OP != STORE) && 
-                     (M_OP != LOAD) && (M_WADDR != 5'b00000) && !ed_fwd2);
-
-    assign wd_fwd1 = ((D_ADDR1 == W_WADDR) && (D_OP != LUI)&&
-                     (D_OP != AUIPC) && (D_OP != JAL) &&
-                     (W_OP != STORE)&& 
-                     !ed_fwd1 && !md_fwd1 && (W_WADDR != 5'b00000));
-    
-    assign wd_fwd2 = ((D_ADDR2 == W_WADDR) && (D_OP != LUI)&&
-                     (D_OP != AUIPC) && (D_OP != JAL) &&
-                     (W_OP != STORE)&& 
-                     !ed_fwd2 && !md_fwd2 && (W_WADDR != 5'b00000));
-    
-    assign flush_jalr = (D_OP == JALR);
-    assign flush_jal = (D_OP == JAL);
-
     assign we_load_fwd1 = ((W_OP == LOAD) && (M_OP == 7'b000_0000) && (E_ADDR1 == W_WADDR));
     assign we_load_fwd2 = ((W_OP == LOAD) && (M_OP == 7'b000_0000) && (E_ADDR2 == W_WADDR)); 
     
 
     
+
+    // RS1 Forward Handling Block
     always_comb begin
         
         FWD_RS1 = 2'b00; // normal RS1 in MEM
@@ -122,10 +159,10 @@ module HAZ_UNIT (
         if (we_load_fwd1) begin
             FWD_SRCA = 1'b1; // LOAD to EXECUTE
         end
-        
 
     end
 
+    // RS2 Forward Handling Block
     always_comb begin
 
         FWD_RS2 = 2'b00; // normal RS2 in DE
@@ -152,10 +189,9 @@ module HAZ_UNIT (
             FWD_DIN = 1'b1; // LOAD to STORE
         end
 
-        
-
     end
 
+    // LOAD-USE BLOCK
     always_comb begin
         
         STALL = 1'b0;
