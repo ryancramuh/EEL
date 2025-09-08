@@ -3,3 +3,4 @@ tests/**/obj_dir/
 tests/**/a.out
 tests/**/results.log
 tests/**/build.log
+/rtl/sequential/TARG_GEN.sv
