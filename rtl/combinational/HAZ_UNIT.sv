@@ -6,6 +6,11 @@ module HAZ_UNIT (
 
     input CLK,
 
+    input [4:0]  F_ADDR1,
+    input [4:0]  F_ADDR2,
+    input [4:0]  F_WADDR,
+    input [6:0]  F_OP,
+
     input [4:0]  D_ADDR1,
     input [4:0]  D_ADDR2,
     input [4:0]  D_WADDR,
@@ -34,7 +39,9 @@ module HAZ_UNIT (
 
     output logic FWD_SRCA, 
     output logic FWD_SRCB, 
-    output logic FWD_DIN
+    output logic FWD_DIN,
+
+    output logic [1:0] PC_SEL
 );
 
     /* Hazards are generated if source operand address (addr1 or addr2) is the same as the destination address (waddr)
@@ -47,15 +54,30 @@ module HAZ_UNIT (
      *      - if normal data hazard, pipe ALU result from E, M, or W. */
 
 
-    // flow control and pipeline control
+    // pipeline control
     logic load_use_stall;
     logic flush_jalr;
-    logic flush_jal;
-    
+    logic flush_branch;
+
     assign load_use_stall = (((D_ADDR1 == E_WADDR) || (D_ADDR2 == E_WADDR)) && (E_OP == LOAD));
     assign flush_jalr = (D_OP == JALR);
-    assign flush_jal = (D_OP == JAL);
+
+    // JAL HANDLING
+    logic jal;
+    assign jal = (F_OP == 7'b1101111);
+
+    // JALR and BRANCH HANDLING
+
+    logic df_fwd1;
+    logic df_fwd2;
+    logic ef_fwd1;
+    logic ef_fwd2;
+    logic mf_fwd1;
+    logic mf_fwd2;
+    logic wf_fwd1;
+    logic wf_fwd2;
     
+
     // regular forwards
     logic ed_fwd1;
     logic ed_fwd2;
@@ -201,10 +223,22 @@ module HAZ_UNIT (
             STALL = 1'b1;
         end
         
-        if((flush_jal || flush_jalr) && !load_use_stall) begin
+        if(flush_jalr && !load_use_stall) begin
             FLUSH = 1'b1;
         end
         
                  
     end
+
+    always_comb begin
+
+        PC_SEL = 2'b00;
+
+        if(jal) begin
+            PC_SEL = 2'b01;
+        end
+
+    end
+
+
 endmodule

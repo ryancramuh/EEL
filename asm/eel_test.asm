@@ -39,7 +39,7 @@ sw x4, 8(x4) # use
 lb x5, 0(x4)
 lh x6, 4(x4)
 lw x7, 8(x4) 
-
+jal done
 addi x7, x1, 201
 
 
@@ -53,7 +53,7 @@ addi x7, x1, 201
 # x7  = 0x0000c0e8
 # x9  = 6010
 # x10 = 6010
-
+done:
 mv x1, x0
 mv x2, x0
 mv x3, x0
@@ -65,12 +65,5 @@ mv x8, x0
 mv x9, x0
 
 # hazard test stage 2
-
-# store data
-addi x5, x7, 1000
-sw x5, 0(x10)
-
-#store address hazard
-addi x10, x0, 128
 
 

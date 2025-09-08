@@ -33,8 +33,8 @@ module EEL (
     
     logic [31:0] rs1, rs2, w_data;
 
-    
     logic [1:0] pc_sel;
+    logic [1:0] decoder_pc_sel;
     logic [1:0] rf_sel;
     logic reg_write;
     logic mem_write;
@@ -60,7 +60,12 @@ module EEL (
     HAZ_UNIT HAZ_CTRL(
 
         .CLK(CLK),
-
+        
+        .F_ADDR1(ir[19:15]),
+        .F_ADDR2(ir[24:20]),
+        .F_WADDR(ir[11:7]),
+        .F_OP   (ir[6:0]),
+        
         .D_ADDR1(fd.IR[19:15]),
         .D_ADDR2(fd.IR[24:20]),
         .D_WADDR(fd.IR[11:7]),
@@ -84,6 +89,7 @@ module EEL (
         .STALL(stall),
         .FLUSH(flush),
 
+        .PC_SEL(pc_sel),
         .FWD_RS1(fwd_rs1),
         .FWD_RS2(fwd_rs2),
         .FWD_SRCA(fwd_srca),
@@ -92,12 +98,13 @@ module EEL (
     
     );
 
+
     MUX4T1 PC_MUX(
-        .SEL(2'b00), // hardcoded to nextpc until flow control is established
+        .SEL(pc_sel), // hardcoded to nextpc until flow control is established
         .D0(next_pc),
-        .D1(), // jalr
-        .D2(), // branch
-        .D3(), // jal
+        .D1((pc_out) + ({{12{ir[31]}}, ir[19:12], ir[20], ir[30:21], 1'b0})), // jal
+        .D2(), // jalr
+        .D3(), // branch
         .DOUT(pc_in) // pc_in
     );
 
@@ -110,7 +117,6 @@ module EEL (
     );
 
     IMEM PROG_MEMORY(
-        .CLK(CLK),
         .RDEN(1'b1), // hardcoded to never stall
         .ADDR(pc_out[15:2]),
         .MEM_OUT(ir)
@@ -182,7 +188,7 @@ module EEL (
         .OPCODE(fd.IR[6:0]),
         .FUNC3(fd.IR[14:12]),
         .FUNC7(fd.IR[30]),
-        .PC_SEL(pc_sel),
+        .PC_SEL(decoder_pc_sel),
         .RF_SEL(rf_sel),
         .REG_WRITE(reg_write),
         .MEM_WRITE(mem_write),
@@ -218,7 +224,6 @@ module EEL (
         de.RS2        <= rs2_fwd;
         de.RF_SEL     <= rf_sel;
         de.REG_WRITE  <= reg_write;
-        de.PC_SEL     <= pc_sel;
         de.MEM_WRITE  <= mem_write;
         de.MEM_READ   <= mem_read;
         de.SIGN       <= sign;

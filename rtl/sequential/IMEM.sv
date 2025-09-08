@@ -5,7 +5,6 @@
 
 module IMEM #(parameter ADDR_DEPTH = 14)
 (
-    input CLK,
     input RDEN,
     input [ADDR_DEPTH-1:0] ADDR,
     output logic [31:0] MEM_OUT
@@ -18,7 +17,7 @@ initial begin
     $readmemh("eel_program.mem", rom_64kb);
 end
 
-always_ff@(posedge CLK) begin
+always_comb begin
     if(RDEN) begin
         MEM_OUT = rom_64kb[ADDR];
     end

@@ -3,8 +3,8 @@
 // module: Data Memory 64kB
 // author: Ryan Cramer
 
-module DMEM #(parameter ADDR_DEPTH = 14, // 2^14 = 16384 ADDR_WIDTH addresses 
-              parameter DATA_MEM_BASE = 14'h6000, // Configed to start at 0x6000
+module DMEM #(parameter ADDR_DEPTH = 14, // 2^14 = 16384 ADDR_WIDTH addresses
+              parameter DATA_MEM_BASE = 14'h6000,
               parameter ADDR_WIDTH = 32) // 32-bit ADDR_WIDTH
 (
     input CLK,
