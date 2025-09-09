@@ -76,10 +76,6 @@ module HAZ_UNIT (
     logic mf_fwd2;
     logic wf_fwd1;
     logic wf_fwd2;
-    
-    assign df_fwd1 = ((F_OP == JALR) || (F_OP == BRANCH)) &&
-                      (D_ADDR1 == 
-                      !load_use_stall &&
 
 
     // regular forwards

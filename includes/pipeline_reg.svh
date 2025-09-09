@@ -40,7 +40,7 @@ typedef struct packed {
     logic BRANCH;
     logic [2:0] BR_TYPE;
     logic JUMP;
-
+    logic TRANSFER_RESOLVED;
     logic STALL;
     logic FLUSH;
 

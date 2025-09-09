@@ -8,7 +8,7 @@ parameter LOAD   = 7'b0000011; // rs1 and rd
 parameter IMM    = 7'b0010011; // rs1 and rd
 parameter REG    = 7'b0110011; // rs1 and rs2 and rd
 parameter JAL    = 7'b1101111; // rd 
-parameter JALR   = 7'b1100111; // rd 
+parameter JALR   = 7'b1100111; // rd and rs1
 parameter BRANCH = 7'b1100011; // rs1 and rs2
 
 `endif
