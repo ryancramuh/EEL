@@ -77,6 +77,10 @@ module HAZ_UNIT (
     logic wf_fwd1;
     logic wf_fwd2;
     
+    assign df_fwd1 = ((F_OP == JALR) || (F_OP == BRANCH)) &&
+                      (D_ADDR1 == 
+                      !load_use_stall &&
+
 
     // regular forwards
     logic ed_fwd1;
@@ -101,6 +105,7 @@ module HAZ_UNIT (
                     (D_OP != LUI)&&
                     (D_OP != AUIPC) &&
                     (D_OP != JAL) &&
+                    (D_OP != IMM) &&
                     (E_OP != STORE) && 
                     (E_OP != LOAD) &&
                     (E_WADDR != 5'b00000)
@@ -122,6 +127,7 @@ module HAZ_UNIT (
                     (D_OP != LUI)&&
                     (D_OP != AUIPC) && 
                     (D_OP != JAL) && 
+                    (D_OP != IMM) &&
                     (M_OP != STORE) && 
                     (M_OP != LOAD) && 
                     (M_WADDR != 5'b00000) && 
@@ -141,7 +147,9 @@ module HAZ_UNIT (
     
     assign wd_fwd2 = ((D_ADDR2 == W_WADDR) && 
                     (D_OP != LUI)&&
-                    (D_OP != AUIPC) && (D_OP != JAL) &&
+                    (D_OP != AUIPC) && 
+                    (D_OP != JAL) &&
+                    (D_OP != IMM) &&
                     (W_OP != STORE) && 
                     (W_WADDR != 5'b00000) && 
                     !ed_fwd2 && 
